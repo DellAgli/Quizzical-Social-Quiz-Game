@@ -1,0 +1,30 @@
+.frontpage {
+	background-color: #66ccff;
+	
+}
+
+.jumbotron h1 {
+	text-align: center;
+	font-size: 64px;
+}
+
+.jumbotron img {
+	margin:auto;
+	display:block;
+}
+
+.jumbotron table {
+	width:100%;
+	font-size: 36px;
+	text-align: center;
+}
+
+.jumbotron table tr td {
+	width:33.3%;
+}
+
+.jumbotron p {
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
