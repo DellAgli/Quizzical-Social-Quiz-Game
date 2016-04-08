@@ -1,25 +1,40 @@
-.frontpage {
-	background-color: #66ccff;
+.questionpage {
+	background-color: #CADBE3;
 }
 
-.jumbotron h1 {
+.questionpage h1 {
 	text-align: center;
 	font-size: 64px;
 }
 
-.jumbotron h3 {
+.questionpage h3 {
 	margin-left: 15%;
 	margin-right: 15%; 
 	font-size:32px;
 }
 
-.jumbotron ul {
+.questionpage ul {
 	list-style:none;
 	margin-left: 15%;
 	margin-right: 15%;
 }
 
-.jumbotron ul li label {
+.questionpage ul li label {
 	font-size:24px;
 }
+
+.questionpage table {
+	width: 100%;
+}
+
+.questionpage table tr td {
+	width: 50%;
+}
+
+.author-name {
+	font-size:20px;
+	text-align: center;
+	font-style: italic;
+}
+
 

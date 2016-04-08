@@ -1,12 +1,15 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>TBD</title>
+		<title>Quizzical</title>
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
 		
 	</head>
 
-	
+	<body>
+	{{newQuestion}}
+	</body>
+
 
 	<template name="home">
 	{{> header}}
@@ -16,6 +19,11 @@
 	<template name="questionPage">
 	{{> header}}
 	{{> question}}
+	</template>
+
+	<template name="submitQuestion">
+	{{> header}}
+	{{> newQuestion}}
 	</template>
 
 	

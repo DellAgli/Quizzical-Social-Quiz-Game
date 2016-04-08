@@ -1,26 +1,52 @@
 <template name="question">
+<div class="main-page container">
 
-<div class="jumbotron frontpage">
-   <h1>Answer the question</h1>
+   <row>
+      <div class="col-xs-12">
+         <h1>Quizzical</h1>
+         <h3 id="question-text"></h3>
+         <p class="author-name" id="author"></p>
+      </div>
+   </row>
 
-   <h3> This a question. A question to be asked... Question? </h3>
+   <row>
+           <div class="form-group">
+            
+            <div class="col-xs-8 col-xs-offset-2"> 
+               <input type="text" class="form-control" id="correct" placeholder="Correct Answer">
+            </div>
+             
+            <div class="col-xs-8 col-xs-offset-2"> 
+               <input type="text" class="form-control" id="false1" placeholder="Incorrect Answer">
+            </div>
 
-   <ul>
-   	<li>
-   		<label><input type="radio" name="optradio">Option 1</label>
-   	</li>
-   	<li>
-   		<label><input type="radio" name="optradio">Option 2</label>
-   	</li>
-   	<li>
-   		<label><input type="radio" name="optradio">Option 2</label>
-   	</li>
-   	<li>
-   		<label><input type="radio" name="optradio">Option 2</label>
-   	</li>
-   	</ul>
+             
+            <div class="col-xs-8 col-xs-offset-2"> 
+               <input type="text" class="form-control" id="false2" placeholder="Incorrect Answer">
+            </div>
+
+            
+            <div class="col-xs-8 col-xs-offset-2"> 
+               <input type="text" class="form-control" id="false3" placeholder="Incorrect Answer">
+            </div>
+               <div class="form-group">
+                     <div class="buttons-group col-xs-offset-2 col-xs-10">
+
+               <button class="btn btn-default new-button">New Question</button>
+               <button class="btn btn-primary submit-button">Submit</button>
+               
+
+                </div>
+            </div>
+         </div>
+       </row>
+
+
+   
+  
+   
    
 
- </div>
 
+</div>
 </template>

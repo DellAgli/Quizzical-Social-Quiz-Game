@@ -1,0 +1,23 @@
+.preview {
+	margin-top:40px;
+	font-size:32px;
+}
+
+.control-label {
+	font-size:24px;
+	font-weight: bold;
+}
+
+.buttons-group {
+	margin-top:30px;
+}
+
+input[type="text"]{
+	font-size:24px;
+}
+
+.preview-title h3 {
+	margin-top:50%;
+	font-size:24px;
+	font-weight: bold;
+}
