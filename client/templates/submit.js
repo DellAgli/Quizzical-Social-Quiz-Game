@@ -3,7 +3,7 @@ Template.newQuestion.events({
 		event.preventDefault();
 		const question = $('#question').val();
 
-		$('#self-preview').text("In your opinion, " + question);
+		
 		$('#friend-preview').text("According to Anthony, " + question);
 		},
 	'click .submit-button':function(event){

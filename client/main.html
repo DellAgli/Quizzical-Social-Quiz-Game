@@ -6,24 +6,7 @@
 		
 	</head>
 
-	<body>
-	{{newQuestion}}
-	</body>
-
-
-	<template name="home">
+	<template name="main">
 	{{> header}}
-	{{> homePage}}
+	{{> yield}}
 	</template>
-
-	<template name="questionPage">
-	{{> header}}
-	{{> question}}
-	</template>
-
-	<template name="submitQuestion">
-	{{> header}}
-	{{> newQuestion}}
-	</template>
-
-	
