@@ -1,9 +1,34 @@
 Template.join.events({
 	'click #begin' : function(event){
 		Router.go("localhost:3000/game:" + gameData._id);
-	}
-});
+	},
 
+	'click #join' : function(event){
+		var gameTarget = Games.findOne({'_id' : gameData._id});
+
+		var newPlayer = true;
+		for(var i = 0; i < gameTarget.players.length; i++) {
+    		if (gameTarget.players[i] === Meteor.userId()) {
+       		 newPlayer = false;
+        	break;
+    	}
+	}
+
+		if(newPlayer){
+			var player = {
+ 			_id : Meteor.userId(),
+ 			score : 0,
+ 			questionCounter : 5
+ 		}
+
+ 		gameTarget.players.push(player)
+		}
+		console.log(gameTarget);
+	}
+
+	
+});
+/*
 Template.join.onRendered(function() {
 	console.log(gameData);
 
@@ -26,3 +51,5 @@ Template.join.onRendered(function() {
 	}
 	console.log(game);
 });
+
+*/

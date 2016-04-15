@@ -3,20 +3,24 @@
  		var game = {
  			players : [],
  			questions : [],
- 			questionCounter : [],
- 			scoreTally : []
  		}
 
- 		game.players.push(Meteor.userId());
- 		game.scoreTally.push(0);
- 		game.questionCounter.push(5);
- 		console.log(game);
+ 		var player = {
+ 			_id : Meteor.userId(),
+ 			score : 0,
+ 			questionCounter : 5
+ 		}
 
- 		var id = Games.insert(game);
+ 		game.players.push(player);
 
- 		var string = "localhost:3000/join:" + id;
+ 		var gameId = Games.insert(game);
+
+ 		var string = "localhost:3000/join:" + gameId;
 
  		console.log(string);
- 	}
+
+ 		$('#link').text(string);
+	}
+ 	
 
  });
