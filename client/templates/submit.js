@@ -10,12 +10,12 @@ Template.newQuestion.events({
 		event.preventDefault();
 		var question = {
 			question: $('#question').val(),
-			author: "someone"
+			author:$('#author').val()
 		}
 
 		Questions.insert(question);
 
-		Router.go(`/`);
+		//Router.go(`/`);
 	}
 
 

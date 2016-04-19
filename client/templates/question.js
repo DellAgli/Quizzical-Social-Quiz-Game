@@ -1,4 +1,4 @@
-Template.question.onRendered(function () {
+Template.answer.onRendered(function () {
 	Meteor.defer(function () {
     const questionData = Random.choice(Questions.find().fetch());
 	//console.log(questionData);
@@ -15,10 +15,9 @@ Template.question.onRendered(function () {
 	
 });
 
-Template.question.events({
+Template.answer.events({
 	'click .new-button': function(event){
 		event.preventDefault();
-
 		const questionData = Random.choice(Questions.find().fetch());
 		$('#question-text').text(questionData.question);
 		$('#author').text("Submitted by: " + questionData.author);
@@ -26,7 +25,23 @@ Template.question.events({
 	'click .submit-button':function(event){
 		event.preventDefault;
 
+
+
+		var player = null;
+
+		var newPlayer = true;
+		for(var i = 0; i < gameData.game.players.length; i++) {
+    		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    }
+
+
+
+		if(player.questionCounter !== 0){
 		var answeredQuestion = {
+			qText : $('#question-text').text(),
 			author: "someone",
 			correct: $('#correct').val(),
 			incorrect1: $('#false1').val(),
@@ -34,8 +49,15 @@ Template.question.events({
 			incorrect3: $('#false3').val()
 		}
 
-		console.log(answeredQuestion);
+		player.questionCounter--;
+		
+		gameData.game.questions.push(answeredQuestion);
+		
+		}
+		else
+			alert("You have already submitted all your questions for this game. Please wait for your friends to finish")
 		
 	}
 
 });
+

@@ -3,10 +3,12 @@
  		var game = {
  			players : [],
  			questions : [],
+ 			quizTime : false
  		}
 
  		var player = {
  			_id : Meteor.userId(),
+ 			nickName : $('#nickname').val,
  			score : 0,
  			questionCounter : 5
  		}
@@ -17,7 +19,9 @@
 
  		var string = "localhost:3000/join:" + gameId;
 
- 		console.log(string);
+ 		console.log(game);
+
+ 		//console.log(string);
 
  		$('#link').text(string);
 	}
