@@ -23,7 +23,7 @@
 
  		//console.log(string);
 
- 		$('#link').text(string);
+ 		Router.go('/game:' + gameId);
 	}
  	
 

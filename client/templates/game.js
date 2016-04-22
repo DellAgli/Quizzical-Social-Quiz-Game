@@ -1,6 +1,10 @@
 Template.game.helpers({
 	'quizTime' : function(){
 		return gameData.game.quizTime;
+	},
+
+	'id' : function(){
+		return gameData._id;
 	}
 
 });

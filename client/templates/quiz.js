@@ -8,29 +8,46 @@ Template.quiz.helpers({
 		//var game = Games.findOne({'_id' : gameData._id});
 		var questions = gameData.game.questions;
 		for(i = 0; i<questions.length; i++){
-			var answersOrdered = [];
+			var answers = [];
 			var nextQuestion={
 				'questiontext' : questions[i].qText,
 				'author' : questions[i].author,
 				'answers' : []
-			};
-			answersOrdered.push({text:questions[i].correct});
-			answersOrdered.push({text:questions[i].incorrect1});
-			answersOrdered.push({text:questions[i].incorrect2});
-			answersOrdered.push({text:questions[i].incorrect3});
+			}
 
-			//var answersShuffled = [];
-			//while (answersOrdered != []){
-			//	var index = Math.floor(Math.random(answersOrdered.length));
-			//	answersShuffled.push(answersOrdered[index]);
-			//	answersOrdered.splice(index, 1);
-			//}
-			nextQuestion.answers = answersOrdered;
+			answers.push({text:questions[i].correct});
+			answers.push({text:questions[i].incorrect1});
+			answers.push({text:questions[i].incorrect2});
+			answers.push({text:questions[i].incorrect3});
+
+			
+			
+			var index = answers.length;
+			var temp;
+			var random;
+			while(0 !== index){
+				random = Math.floor(Math.random()*index);
+				index--;
+
+				temp = answers[index];
+				answers[index] = answers[random];
+				answers[random] = temp;
+			}
+
+			nextQuestion.answers = answers;
 			r.push(nextQuestion);
 		}
 		console.log(r);
 		return r;
 	}
 
+
+});
+
+Template.quiz.events({
+
+	'click .submit' : function (){
+		console.log("Submit");
+	}
 
 });
