@@ -1,3 +1,6 @@
+Meteor.subscribe('questions');
+Meteor.subscribe('games');
+
 Template.answer.onRendered(function () {
 	Meteor.defer(function () {
     const questionData = Random.choice(Questions.find().fetch());
@@ -21,7 +24,12 @@ Template.answer.events({
 		const questionData = Random.choice(Questions.find().fetch());
 		$('#question-text').text(questionData.question);
 		$('#author').text("Submitted by: " + questionData.author);
-	},	
+	},
+
+	'click .back' : function(event){
+		Router.go('/game:' + gameData._id);
+	},
+
 	'click .submit-button':function(event){
 		event.preventDefault;
 
@@ -52,6 +60,8 @@ Template.answer.events({
 		player.questionCounter--;
 		
 		gameData.game.questions.push(answeredQuestion);
+
+		Games.update({'_id' : gameData._id},{$set:{players : gameData.game.players, questions : gameData.game.questions}});
 		
 		}
 		else

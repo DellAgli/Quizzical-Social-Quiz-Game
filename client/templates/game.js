@@ -7,11 +7,11 @@ Template.game.helpers({
 
 Template.game.events({
 	'click #addQuestions': function(event){
-		Router.go('/answer:'+ _id)
+		Router.go('/answer:'+ gameData._id)
 	},
 
 	'click #doQuiz': function(event){
-		Router.go('quiz:' + _id);
+		Router.go('/quiz:' + gameData._id);
 	}
 
 
