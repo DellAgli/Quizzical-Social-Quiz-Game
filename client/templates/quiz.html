@@ -1,0 +1,40 @@
+ <template name="quiz">
+ <div class="main-page container">
+
+   <row>
+      <div class="col-xs-12">
+         <h1>Quizzical</h1>
+         <h3 id="question-text"></h3>
+         <p class="author-name" id="author"></p>
+      </div>
+   </row>
+ <row>
+       <div class="col-xs-8 col-xs-offset-2"> 
+       <p class="instructions"> Answer the questions as best as possible</p>
+      </div>
+</row>
+   
+   <div class="container">
+   		{{#each questions}}
+   			<row>
+   			<div class="col-xs-10 col-xs-offset-1"> 
+   			<h1>
+   			According to {{author}}, {{questiontext}}?
+   			</h1>
+   			</div>
+   			</row>
+   			
+
+   			<row>
+   				<div class="col-xs-10 col-xs-offset-1">
+   					<form>
+   						{{#each answers}}
+   						<input type="radio" name="answer" value="{{text}}">{{text}}<br>
+   						{{/each}}
+   						</form>
+   				</div>
+   			</row>
+   	{{/each}}
+</div>
+</div>
+</template>
