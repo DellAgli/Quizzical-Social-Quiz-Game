@@ -1,9 +1,42 @@
 <template name="game">
 	<div class="main-page container">
+
+	<h1> Game Info </h1>
+
+	<table class="table table-bordered score-table">
+		<tr>
+			<td class="nick-name table-title">
+			Name
+			</td>
+			<td class="questions-left table-title">
+			Questions Left
+			</td>
+			<td class="player-scores table-title">
+			Score
+			</td>
+		</tr>
+
+	{{#each players}}
+		<tr>
+			<td class="nick-name">
+			{{nickName}}
+			</td>
+			<td class="questions-left">
+			{{questionCounter}}
+			</td>
+			<td class="player-scores">
+			{{score}}
+			</td>
+		</tr>
+	{{/each}}
+	</table>
+	
 	<h1> Invite Link</h1>
 	<p>
-		localhost:join:{{id}}
+		localhost/join:{{id}}
 	</p>
+
+	<button type="button" class="btn btn-primary" id="startGame">Start Game</button>
 
 	<button type="button" class="btn btn-primary" id="addQuestions">Answer Questions</button>
 

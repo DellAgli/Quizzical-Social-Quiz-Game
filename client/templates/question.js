@@ -35,9 +35,8 @@ Template.answer.events({
 
 
 
-		var player = null;
+		let player = null;
 
-		var newPlayer = true;
 		for(var i = 0; i < gameData.game.players.length; i++) {
     		if (gameData.game.players[i]._id === Meteor.userId()) {
        		 player = gameData.game.players[i];

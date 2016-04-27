@@ -3,14 +3,16 @@
  		var game = {
  			players : [],
  			questions : [],
+ 			surveyTime : false,
  			quizTime : false
  		}
 
  		var player = {
  			_id : Meteor.userId(),
- 			nickName : $('#nickname').val,
+ 			nickName : $('#nickname').val(),
  			score : 0,
- 			questionCounter : 5
+ 			questionCounter : 5,
+ 			leader : true
  		}
 
  		game.players.push(player);
