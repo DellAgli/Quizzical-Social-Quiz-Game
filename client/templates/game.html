@@ -30,16 +30,16 @@
 		</tr>
 	{{/each}}
 	</table>
-	
+	{{#if inviteTime}}
 	<h1> Invite Link</h1>
 	<p>
 		localhost/join:{{id}}
 	</p>
+	{{/if}}
+	<button type="button" class="btn btn-primary {{startGameDisable}}" id="startGame">Start Game</button>
 
-	<button type="button" class="btn btn-primary" id="startGame">Start Game</button>
+	<button type="button" class="btn btn-primary {{answerQuestionDisable}}" id="addQuestions">Answer Questions</button>
 
-	<button type="button" class="btn btn-primary" id="addQuestions">Answer Questions</button>
-
-	<button type="button" class="btn btn-primary" id="doQuiz">Take Quiz</button>
+	<button type="button" class="btn btn-primary {{takeQuizDisable}}" id="doQuiz">Take Quiz</button>
 	</div>
 </template>

@@ -13,7 +13,7 @@ Template.answer.onRendered(function () {
 	catch(err){
 	$('#question-text').text("Please load new question =(");
 	}
-	$('#author').text("Submitted by: " + "=(");
+	
   });
 	
 });
@@ -38,6 +38,7 @@ Template.answer.events({
 		let player = null;
 
 		for(var i = 0; i < gameData.game.players.length; i++) {
+			console.log("derp");
     		if (gameData.game.players[i]._id === Meteor.userId()) {
        		 player = gameData.game.players[i];
         	break;
@@ -46,25 +47,20 @@ Template.answer.events({
 
 
 
-		if(player.questionCounter !== 0){
+	
 		var answeredQuestion = {
 			qText : $('#question-text').text(),
-			author: "someone",
+			author: player.nickName,
 			correct: $('#correct').val(),
 			incorrect1: $('#false1').val(),
 			incorrect2: $('#false2').val(),
 			incorrect3: $('#false3').val()
 		}
 
-		player.questionCounter--;
+		Meteor.call('submitQuestion', gameData._id, Meteor.userId(), answeredQuestion, function(e,r){
+			console.log(r);
+		})
 		
-		gameData.game.questions.push(answeredQuestion);
-
-		Games.update({'_id' : gameData._id},{$set:{players : gameData.game.players, questions : gameData.game.questions}});
-		
-		}
-		else
-			alert("You have already submitted all your questions for this game. Please wait for your friends to finish")
 		
 	}
 

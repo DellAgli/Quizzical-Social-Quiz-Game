@@ -17,15 +17,18 @@
 
  		game.players.push(player);
 
- 		var gameId = Games.insert(game);
+ 		Meteor.call('newGame', game, function(e,r){
 
- 		var string = "localhost:3000/join:" + gameId;
+			var string = "localhost:3000/join:" + r;
 
- 		console.log(game);
+	 		console.log(game);
 
- 		//console.log(string);
+	 		console.log(string);
 
- 		Router.go('/game:' + gameId);
+	 		Router.go('/game:' + r);
+ 		});
+
+ 		
 	}
  	
 

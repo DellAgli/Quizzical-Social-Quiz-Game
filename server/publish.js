@@ -1,6 +1,6 @@
- Meteor.publish('questions', function(limit){
-  	return Questionss.find({});
+ Meteor.publish('questions', function(){
+  	return Questions.find({});
 });
- Meteor.publish('games', function(limit){
-  	return Games.find({'_id' : limit});
+ Meteor.publish('games', function(){
+  	return Games.find({});
 });
