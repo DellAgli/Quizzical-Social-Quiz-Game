@@ -13,9 +13,11 @@ Template.newQuestion.events({
 			author:$('#author').val()
 		}
 
-		Questions.insert(question);
+		Meteor.call('addNewQuestion', question, function(e,r){
+			Router.go(`/`);
+		});
 
-		//Router.go(`/`);
+		
 	}
 
 

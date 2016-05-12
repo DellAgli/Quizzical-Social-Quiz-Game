@@ -12,6 +12,7 @@
  			nickName : $('#nickname').val(),
  			score : 0,
  			questionCounter : 5,
+ 			answers : [],
  			leader : true,
  			finished : false
  		}
