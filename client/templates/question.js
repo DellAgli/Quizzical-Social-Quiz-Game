@@ -1,6 +1,22 @@
 Meteor.subscribe('questions');
 Meteor.subscribe('games');
 
+Template.answer.onCreated(function(){
+	let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    };
+	gameData.player = player;
+    if(player === null)
+       	Router.go('/');
+    if(player.questionCounter === 0)
+    	Router.go('/game:' + gameData._id);
+    
+});
+
 Template.answer.onRendered(function () {
 	Meteor.defer(function () {
     const questionData = Random.choice(Questions.find().fetch());
@@ -17,6 +33,20 @@ Template.answer.onRendered(function () {
   });
 	
 });
+
+Template.answer.helpers({
+	'questionsLeft': function(){
+		let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    }
+
+    return player.questionCounter;
+	}
+})
 
 Template.answer.events({
 	'click .new-button': function(event){
@@ -38,7 +68,6 @@ Template.answer.events({
 		let player = null;
 
 		for(var i = 0; i < gameData.game.players.length; i++) {
-			console.log("derp");
     		if (gameData.game.players[i]._id === Meteor.userId()) {
        		 player = gameData.game.players[i];
         	break;
@@ -61,7 +90,15 @@ Template.answer.events({
 		//console.log(answeredQuestion);
 
 		Meteor.call('submitQuestion', gameData._id, Meteor.userId(), answeredQuestion, function(e,r){
-			console.log(r);
+			if(r == 0){
+				alert("You have submitted all your questions. Come back once everyone has submitted their's");
+				Router.go('/game:' + gameData._id);
+			}
+			else {
+				const questionData = Random.choice(Questions.find().fetch());
+				$('#question-text').text(questionData.question);
+				$('#author').text("Submitted by: " + questionData.author);
+			}
 		})
 		
 		

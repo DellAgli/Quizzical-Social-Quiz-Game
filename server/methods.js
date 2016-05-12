@@ -18,46 +18,53 @@
 
  	},
 
- 	gradeQuestion : function(gameID, userID, questionID, answer){
+ 	gradeQuestions : function(gameID, userID, answers){
  		let game = Games.findOne({_id : gameID});
- 		console.log(game);
- 		let question = null;
- 		for(i = 0; i<game.questions.length; i++){
- 			if(game.questions[i]._id === questionID){
+ 		let score = 0;
+ 		let playerIndex = null;
+ 		for(i = 0; i<game.players.length; i++){
+ 			if(game.players[i]._id === userID){
+ 				playerIndex= i;
+ 				break
+ 			}
+ 		}
+
+ 		for(i = 0; i<answers.length; i++){
+ 			let questionID = answers[i].questionID;
+ 			let answer = answers[i].answer;
+ 			let question = null;
+ 			for(i = 0; i<game.questions.length; i++){
+ 			if(game.questions[i].questionID === questionID){
+ 				//console.log(game.questions[i]._id );
  				question = game.questions[i];
  				break
  			}
  		}
+ 		
+ 		game.players[playerIndex].answers.push({
+ 			questionID: questionID,
+ 			answer: answer
+ 			});
+ 		Games.update({_id: gameID}, {$set: {players: game.players}});
 
  		if(question.correct === answer){
- 			return true;
+ 			score += 5;
  			
  		}
- 		else{
- 			return question.correct;
  		}
+ 		game.players[playerIndex].finished = true;
+ 		game.players[playerIndex].score = score;
+ 		Games.update({_id: gameID}, {$set: {players: game.players}});
+
+ 		return score;
+ 		
 
  	},
 
- 	finishQuiz : function(gameID, userID, score){
- 		let game = Games.findOne({ '_id' : gameID});
- 		let player = null;
- 		for(i = 0; i<game.players.length; i++){
- 			if(game.players[i]._id === userID){
- 				player= game.players[i];
- 				break
- 			}
- 		}
- 		player.score = score;
- 		//console.log(score);
- 		player.finishQuiz = true;
- 		Games.update({_id: gameID}, {$push: {players: player}});
- 	},
 
  	submitQuestion : function(gameID, playerID, question){
  		let game = Games.findOne({ '_id' : gameID});
  		let index = -1;
- 		console.log(game);
  		for(i = 0; i<game.players.length; i++){
  			if(game.players[i]._id === playerID){
  
@@ -67,11 +74,10 @@
  		}
  		if(game.players[index].questionCounter > 0){
  			game.players[index].questionCounter--;
- 			console.log(game);
  			let r =[]
- 			r[0]= Games.update({_id : gameID }, {$set: {players: game.players}});
- 			r[1]= Games.update({_id : gameID }, {$push : {questions: question}});
- 			return r
+ 			Games.update({_id : gameID }, {$set: {players: game.players}});
+ 			Games.update({_id : gameID }, {$push : {questions: question}});
+ 			return game.players[index].questionCounter;
  	}
 
  	},
@@ -115,6 +121,10 @@
 	}
 		//console.log(r);
 		return r;
+ 	},
+
+ 	addNewQuestion: function(question){
+ 		Questions.insert(question);
  	}
 
  });

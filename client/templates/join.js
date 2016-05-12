@@ -20,6 +20,7 @@ Template.join.events({
  			nickName : $('#nickname').val,
  			score : 0,
  			questionCounter : 5,
+ 			answers : [],
  			finished : false
  		}
 
