@@ -19,7 +19,8 @@ Template.join.events({
  			_id : Meteor.userId(),
  			nickName : $('#nickname').val,
  			score : 0,
- 			questionCounter : 5
+ 			questionCounter : 5,
+ 			finished : false
  		}
 
  		gameTarget.players.push(player)

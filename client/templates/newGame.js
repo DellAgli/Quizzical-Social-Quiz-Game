@@ -12,7 +12,8 @@
  			nickName : $('#nickname').val(),
  			score : 0,
  			questionCounter : 5,
- 			leader : true
+ 			leader : true,
+ 			finished : false
  		}
 
  		game.players.push(player);

@@ -51,11 +51,14 @@ Template.answer.events({
 		var answeredQuestion = {
 			qText : $('#question-text').text(),
 			author: player.nickName,
+			authorId: Meteor.userId(),
 			correct: $('#correct').val(),
 			incorrect1: $('#false1').val(),
 			incorrect2: $('#false2').val(),
-			incorrect3: $('#false3').val()
+			incorrect3: $('#false3').val(),
+			questionID: Random.id()
 		}
+		//console.log(answeredQuestion);
 
 		Meteor.call('submitQuestion', gameData._id, Meteor.userId(), answeredQuestion, function(e,r){
 			console.log(r);
