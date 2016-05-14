@@ -17,19 +17,24 @@ Template.join.events({
 		if(newPlayer){
 			var player = {
  			_id : Meteor.userId(),
- 			nickName : $('#nickname').val,
+ 			nickName : Meteor.user().profile.name,
  			score : 0,
  			questionCounter : 5,
  			answers : [],
  			finished : false
  		}
 
- 		gameTarget.players.push(player)
-		}
-		console.log(gameTarget);
-
-		Router.go("/game:" + gameData._id);
+ 		Meteor.call('joinGame', gameData.id, player, Meteor.user(), function(e,r){
+			Router.go("/game:" + gameData._id);
+ 		});
+		}		
 	}
 
 	
+});
+
+Template.join.helpers({
+	'gameName': function(){
+		return gameData.game.gameName;
+	}
 });

@@ -51,11 +51,11 @@ Template.game.helpers({
 			return "disabled"
 	},
 	answerQuestionDisable: function(){
-		if(!gameData.game.surveyTime)
+		if(!gameData.game.surveyTime || gameData.player.questionCounter === 0)
 			return "disabled"
 	},
 	takeQuizDisable: function(){
-		if(!gameData.game.quizTime){
+		if(!gameData.game.quizTime || gameData.player.finished){
 			return 'disabled';
 		}
 	},

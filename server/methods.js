@@ -1,15 +1,14 @@
  Meteor.methods({
- 	newGame : function(game){
- 		let gameId = Games.insert(game);
- 		console.log(gameId);
- 		return gameId;
+ 	newGame : function(game, user){
+ 		let gameID = Games.insert(game);
+ 		let gamesList = user.profile.games;
+ 		gamesList.push(gameID);
+ 		Meteor.users.upsert({_id: user._id}, {$set: {profile: {games: gamesList}}});
+ 		return gameID;
  	},
 
  	startGame: function(gameID){
- 		//console.log(gameID)
  		Games.update({_id : gameID}, {$set: {surveyTime: true}});
- 		//console.log(Games.findOne({_id : gameID}));
- 		//console.log(Games.findOne({}));
  	},
 
  	startQuiz: function(id){
@@ -125,6 +124,13 @@
 
  	addNewQuestion: function(question){
  		Questions.insert(question);
+ 	},
+
+ 	joinGame: function(gameID, newPlayer, user){
+ 		let gamesList = user.profile.games;
+ 		gamesList.push(gameID);
+ 		Meteor.users.upsert({_id: user._id}, {$set: {profile: {games: gamesList}}});
+ 		Games.upsert({_id: gameID}, {$push: {players: newPlayer}})
  	}
 
  });
