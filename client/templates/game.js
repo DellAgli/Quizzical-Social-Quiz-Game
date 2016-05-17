@@ -27,6 +27,14 @@ Template.game.onCreated(function(){
 		if(boolean){
 			Meteor.call('startQuiz', gameData._id)
 		}
+
+	for(i=0;i<gameData.game.questions.length;i++){
+		gameData.game.questions[i].correct = null;
+		gameData.game.questions[i].incorrect1 = null;
+		gameData.game.questions[i].incorrect2 = null;
+		gameData.game.questions[i].incorrect3 = null;
+
+	}
 });
 
 Template.game.helpers({

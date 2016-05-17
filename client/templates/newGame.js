@@ -1,3 +1,13 @@
+Template.newGame.onCreated(function(){
+	for(i=0;i<gameData.game.questions.length;i++){
+		gameData.game.questions[i].correct = null;
+		gameData.game.questions[i].incorrect1 = null;
+		gameData.game.questions[i].incorrect2 = null;
+		gameData.game.questions[i].incorrect3 = null;
+
+	}
+});
+
  Template.newGame.events({
  	'click #newGame' : function(event){
  		var game = {
