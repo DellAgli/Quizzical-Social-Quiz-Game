@@ -1,9 +1,9 @@
  Meteor.methods({
  	newGame : function(game, user){
  		let gameID = Games.insert(game);
- 		let gamesList = user.profile.games;
- 		gamesList.push(gameID);
- 		Meteor.users.upsert({_id: user._id}, {$set: {profile: {games: gamesList}}});
+ 		let profile = user.profile;
+ 		profile.games.push(gameID);
+ 		Meteor.users.upsert({_id: user._id}, {$set: {profile: profile}});
  		return gameID;
  	},
 
