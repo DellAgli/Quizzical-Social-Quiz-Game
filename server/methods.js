@@ -86,7 +86,9 @@
  		let r = [];
 		var questions = game.questions;
 		for(i = 0; i<questions.length; i++){
-			//if(questions[i].authorID === playerID){
+			if(questions[i].authorId != playerID){
+				console.log(questions[i].authorID);
+				console.log(playerID);
 			var answers = [];
 			var nextQuestion={
 				'questiontext' : questions[i].qText,
@@ -116,7 +118,7 @@
 
 			nextQuestion.answers = answers;
 			r.push(nextQuestion);
-		//}
+		}
 	}
 		//console.log(r);
 		return r;
@@ -127,10 +129,19 @@
  	},
 
  	joinGame: function(gameID, newPlayer, user){
- 		let gamesList = user.profile.games;
- 		gamesList.push(gameID);
- 		Meteor.users.upsert({_id: user._id}, {$set: {profile: {games: gamesList}}});
- 		Games.upsert({_id: gameID}, {$push: {players: newPlayer}})
+ 		let profile = user.profile;
+ 		profile.games.push(gameID);
+ 		Meteor.users.upsert({_id: user._id}, {$set: {profile: profile}});
+ 		Games.update({_id: gameID}, {$push: {players: newPlayer}})
+ 	},
+ 	getGames: function(userID){
+ 		let user = Meteor.users.findOne({_id: userID});
+ 		let ids = user.profile.games;
+ 		let r = [];
+ 		for(i=0;i<ids.length;i++){
+ 			r.push(Games.findOne({_id: ids[i]}))
+ 		}
+ 		return r
  	}
 
  });

@@ -24,7 +24,7 @@ Template.join.events({
  			finished : false
  		}
 
- 		Meteor.call('joinGame', gameData.id, player, Meteor.user(), function(e,r){
+ 		Meteor.call('joinGame', gameData._id, player, Meteor.user(), function(e,r){
 			Router.go("/game:" + gameData._id);
  		});
 		}		

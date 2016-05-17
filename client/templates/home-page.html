@@ -3,12 +3,12 @@
     <row>
         <div class="col-xs-12">
             <h1>Quizzical</h1>
-            <h3>Destroy your Friendship</h3>
+            <h3>A Social Quiz and Survey Game</h3>
         </div>
     </row> 
     <row>
         <div class="img-section col-xs-8 col-xs-offset-2">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Question_mark_(black_on_white).png" />
+        <!--img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Question_mark_(black_on_white).png" / -->
         </div>
     </row>
    <row>
@@ -27,8 +27,18 @@
     <row>
     <div class="body-paragraph col-xs-6 col-xs-offset-3">
     <p>
-    Do stuff and other stuff. Stuff gets done when you do stuff =)
+    This is a description of Quizzical
     </p>
+    </div>
+    </row>
+    <row>
+    <div class="body-paragraph col-xs-6 col-xs-offset-3">
+    <h1 class="games-list-header"> Your Games </h1>
+    <ul>
+    {{#each currentGames}}
+        <li><a href="{{gamelink this._id}}">{{this.gameName}}</a></li>
+    {{/each}}
+    </ul>
     </div>
     </row>
    
