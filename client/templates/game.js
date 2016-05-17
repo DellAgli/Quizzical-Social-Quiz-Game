@@ -42,16 +42,20 @@ Template.game.helpers({
 		return !gameData.game.quizTime && !gameData.game.surveyTime;
 	},
 
-	'id' : function(){
-		return gameData._id;
-	},
 
 	'players' : function(){
 		return gameData.game.players;
 	},
 
 	'isLeader' : function(){
-		return gameData.game.players.indexOf(Meteor.user()._id).leader;
+		let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    };
+		return player.leader;
 	},
 
 	startGameDisable: function(){
@@ -59,14 +63,31 @@ Template.game.helpers({
 			return "disabled"
 	},
 	answerQuestionDisable: function(){
-		if(!gameData.game.surveyTime || gameData.player.questionCounter === 0)
+		let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    }
+		if(!gameData.game.surveyTime || player.questionCounter === 0)
 			return "disabled"
 	},
 	takeQuizDisable: function(){
-		if(!gameData.game.quizTime || gameData.player.finished){
+let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    }	
+		if(!gameData.game.quizTime || player.finished){
 			return 'disabled';
 		}
 	},
+	joinLink: function(){
+		return document.location.origin +"/join:" + gameData._id;
+	}
 });
 
 Template.game.events({
@@ -88,9 +109,16 @@ Template.game.events({
 	},
 
 	'click #doQuiz': function(event){
+			let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    };	
 		if(!gameData.game.quizTime){
 			alert("Everyone needs to answer their questions before you can start");		}
-		else if(gameData.player.finished){
+		else if(player.finished){
 			alert("You already completed the quiz and scored " + gameData.player.score + " points.")
 		}
 		else{

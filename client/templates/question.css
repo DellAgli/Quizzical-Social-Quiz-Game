@@ -1,43 +1,13 @@
-.questionpage {
-	background-color: #CADBE3;
-}
-
-.questionpage h1 {
-	text-align: center;
-	font-size: 64px;
-}
-
-.questionpage h3 {
-	margin-left: 15%;
-	margin-right: 15%; 
-	font-size:32px;
-}
-
-.questionpage ul {
-	list-style:none;
-	margin-left: 15%;
-	margin-right: 15%;
-}
-
-.questionpage ul li label {
-	font-size:24px;
-}
-
-.questionpage table {
-	width: 100%;
-}
-
-.questionpage table tr td {
-	width: 50%;
-}
-
-.author-name {
-	font-size:20px;
-	text-align: center;
-	font-style: italic;
-}
-
 .instructions {
 	text-align: center;
+	font-style: italic;
+	font-color:#222222;
+	font-size: 20px;
+}
+
+.questions-counter{
+	font-style: italic;
+	font-color:#222222;
+	font-size: 20px;
 }
 

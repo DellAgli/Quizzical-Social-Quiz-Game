@@ -1,0 +1,27 @@
+.new-game-name{
+	margin-bottom: 2%;
+}
+
+.new-game-instructions{
+	margin-left: 5%;
+	margin-right: 5%;
+	font-size: 24px;
+	text-align: center;
+}
+
+.good-luck{
+	font-size: 24px;
+	color: #166696;
+	font-weight: bold;
+}
+
+.button-div{
+	text-align: center;
+}
+
+
+
+.new-game-name{
+	width:100%;
+	display:block;
+}

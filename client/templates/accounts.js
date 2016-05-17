@@ -11,7 +11,7 @@
         }, 
         function(e){
         	if(e){
-        		$('.accounts-error').text(e.reason);
+        		$('.reg-error').text(e.reason);
         	}
         	else{
         		$('.modal-backdrop').hide();
@@ -29,7 +29,7 @@
         	event.target.loginPassword.value,
         	function(e){
         	if(e){
-        		$('.accounts-error').text(e.reason);
+        		$('.log-error').text(e.reason);
         	}
         	else{
         		$('.modal-backdrop').hide();
@@ -41,5 +41,6 @@
 Template.accountsSystem.events({
 	'click .log-out': function(){
 		Meteor.logout();
+        Router.go('/');
 	}
 });

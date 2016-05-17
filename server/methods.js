@@ -40,11 +40,11 @@
  			}
  		}
  		
- 		game.players[playerIndex].answers.push({
- 			questionID: questionID,
- 			answer: answer
- 			});
- 		Games.update({_id: gameID}, {$set: {players: game.players}});
+ 		//game.players[playerIndex].answers.push({
+ 		//	questionID: questionID,
+ 		//	answer: answer
+ 		//	});
+ 		//Games.update({_id: gameID}, {$set: {players: game.players}});
 
  		if(question.correct === answer){
  			score += 5;
@@ -136,6 +136,7 @@
  	},
  	getGames: function(userID){
  		let user = Meteor.users.findOne({_id: userID});
+ 		if(user){
  		let ids = user.profile.games;
  		let r = [];
  		for(i=0;i<ids.length;i++){
@@ -143,5 +144,6 @@
  		}
  		return r
  	}
+ }
 
  });

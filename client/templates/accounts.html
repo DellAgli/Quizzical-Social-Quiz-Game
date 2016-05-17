@@ -13,7 +13,7 @@
     	</p><p>
         <input type="text" name="registerName">
     	</p><p>
-        <input type="submit" value="Register">
+        <input type="submit" class="btn btn-primary" value="Register">
         </p>
     </form>
 </template>
@@ -30,7 +30,7 @@
     	</p><p>
         <input type="password" name="loginPassword">
         </p><p>
-        <input type="submit" value="Login">
+        <input type="submit" class="btn btn-primary" value="Login">
         </p>
     </form>
 </template>
@@ -50,7 +50,7 @@
         <h4 class="modal-title accounts-title">Log In</h4>
       </div>
       <div class="modal-body accounts-body">
-      <p class="accounts-error"></p>
+      <p class="log-error"></p>
       {{> login}}
       </div>
     </div>
@@ -65,7 +65,7 @@
         <h4 class="modal-title accounts-title">Register</h4>
       </div>
       <div class="modal-body accounts-body">
-      <p class="accounts-error"></p>
+      <p class="reg-error"></p>
       {{> register}}
       </div>
     </div>

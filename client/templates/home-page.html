@@ -1,48 +1,35 @@
 <template name="homePage">
 <div class="main-page container">
+
     <row>
         <div class="col-xs-12">
             <h1>Quizzical</h1>
             <h3>A Social Quiz and Survey Game</h3>
         </div>
     </row> 
+
+
     <row>
-        <div class="img-section col-xs-8 col-xs-offset-2">
-        <!--img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Question_mark_(black_on_white).png" / -->
-        </div>
-    </row>
-   <row>
-    <div class="key-words col-xs-8 col-xs-offset-2">
-    <div class="col-xs-4">
-        Ask
-    </div>
-     <div class="col-xs-4">
-        Answer
-    </div>
-     <div class="col-xs-4">
-        Discover
-    </div>
-    </div>
-    </row>
-    <row>
-    <div class="body-paragraph col-xs-6 col-xs-offset-3">
+    <div class="body-paragraph col-xs-10 col-xs-offset-1">
     <p>
-    This is a description of Quizzical
+    Quizzical is a social quiz and survey game. You and a group of your friends can come together and construct a quiz to gauge which of your is the best friend. Get to know more about yourself and your friends, all while having fun
+    </p>
+    <p>
+    To start playing, make and account and invite your friends. After that, the fun begins
     </p>
     </div>
     </row>
     <row>
-    <div class="body-paragraph col-xs-6 col-xs-offset-3">
+    <div class="col-xs-6 col-xs-offset-3">
     <h1 class="games-list-header"> Your Games </h1>
-    <ul>
+    <ul class="games-list">
     {{#each currentGames}}
-        <li><a href="{{gamelink this._id}}">{{this.gameName}}</a></li>
+        <li><a class="listed-game" href="{{gamelink this._id}}">{{this.gameName}}</a></li>
     {{/each}}
     </ul>
     </div>
     </row>
    
-
 
 </div>
 

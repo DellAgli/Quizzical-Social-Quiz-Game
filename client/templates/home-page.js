@@ -1,6 +1,5 @@
 Template.homePage.onCreated(function(){
 	Meteor.call('getGames', Meteor.userId(), function(e,r){
-		console.log(r);
 		Session.set('currentGames', r);
 	});
 })
