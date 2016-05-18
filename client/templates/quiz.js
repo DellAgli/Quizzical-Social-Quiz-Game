@@ -1,14 +1,10 @@
 Template.quiz.onCreated(function(){
-	let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    };
-	gameData.player = player;
-    if(player === null)
+	let player = getPlayer(gameData.game, Meteor.userId());
+	gameData.game = hideAnswers(gameData.game);
+
+	if(player === null)
        	Router.go('/');
+
     if(player.finished)
     	Router.go('/game:' + gameData._id);
     
@@ -16,14 +12,6 @@ Template.quiz.onCreated(function(){
 	Meteor.call('getQuiz', gameData._id, Meteor.userId(), function(e,r){
 		Session.set('questions', r);
 	});
-
-	for(i=0;i<gameData.game.questions.length;i++){
-		gameData.game.questions[i].correct = null;
-		gameData.game.questions[i].incorrect1 = null;
-		gameData.game.questions[i].incorrect2 = null;
-		gameData.game.questions[i].incorrect3 = null;
-
-	}
 });
 
 

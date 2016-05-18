@@ -1,24 +1,17 @@
 Meteor.subscribe('games');
 
 Template.game.onCreated(function(){
-	let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    };
-	//gameData.player = player;
+	let player = getPlayer(gameData.game, Meteor.userId());
 
 	if(player === null)
        	Router.go('/');
 
+	gameData.game = hideAnswers(gameData.game);
 
-	let players = gameData.game.players;
 	let boolean = true;
 
-		for(i=0; i<players.length;i++){
-			if(players[i].questionCounter != 0){
+		for(i=0; i<gameData.game.players.length;i++){
+			if(gameData.game.players[i].questionCounter != 0){
 				boolean = false;
 				break
 			}
@@ -28,16 +21,6 @@ Template.game.onCreated(function(){
 			Meteor.call('startQuiz', gameData._id)
 		}
 
-	for(i=0;i<gameData.game.questions.length;i++){
-		gameData.game.questions[i].correct = null;
-		gameData.game.questions[i].incorrect1 = null;
-		gameData.game.questions[i].incorrect2 = null;
-		gameData.game.questions[i].incorrect3 = null;
-
-	}
-	for(i=0; i<gameData.game.players.length;i++){
-		gameData.game.players[i].answers = null;
-	}
 });
 
 Template.game.helpers({
@@ -51,13 +34,7 @@ Template.game.helpers({
 	},
 
 	'isLeader' : function(){
-		let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    };
+		let player = getPlayer(gameData.game, Meteor.userId());
 		return player.leader;
 	},
 
@@ -66,24 +43,12 @@ Template.game.helpers({
 			return "hidden"
 	},
 	answerQuestionDisable: function(){
-		let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    }
+		let player = getPlayer(gameData.game, Meteor.userId());
 		if(!gameData.game.surveyTime || player.questionCounter === 0)
 			return "disabled"
 	},
 	takeQuizDisable: function(){
-	let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    }	
+		let player = getPlayer(gameData.game, Meteor.userId());
 		if(!gameData.game.quizTime || player.finished){
 			return 'disabled';
 		}
@@ -99,14 +64,8 @@ Template.game.helpers({
 		if(!f1)
 			return false
 		else{
-			let player = null;
-			for(var i = 0; i < gameData.game.players.length; i++) {
-  					if (gameData.game.players[i]._id === Meteor.userId()) {
-       				 player = gameData.game.players[i];
-        			break;
-    			}
-    }	
-    return !player.finished;
+			let player = getPlayer(gameData.game, Meteor.userId());
+    		return player.finished;
 		}
 	}
 });
@@ -129,23 +88,21 @@ Template.game.events({
 	},
 
 	'click #doQuiz': function(event){
-			let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    };	
+		let player = getPlayer(gameData.game, Meteor.userId());
+    	
 		if(!gameData.game.quizTime){
-			alert("Everyone needs to answer their questions before you can start");		}
+			alert("Everyone needs to answer their questions before you can start");
+		}
 		else if(player.finished){
-			alert("You already completed the quiz and scored " + gameData.player.score + " points.")
+			alert("You already completed the quiz!")
+			Router.go('results:' + gameData._id + '~' + Meteor.userId());
 		}
 		else{
 			Router.go('/quiz:' + gameData._id);
 		}
 	
-	}
+	},
+
 
 
 });

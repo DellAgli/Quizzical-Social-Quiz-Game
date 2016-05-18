@@ -1,13 +1,7 @@
 Template.join.onCreated(function(){
-	for(i=0;i<gameData.game.questions.length;i++){
-		gameData.game.questions[i].correct = null;
-		gameData.game.questions[i].incorrect1 = null;
-		gameData.game.questions[i].incorrect2 = null;
-		gameData.game.questions[i].incorrect3 = null;
-
-	}
-	for(i=0; i<gameData.game.players.length;i++){
-		gameData.game.players[i].answers = null;
+	gameData.game = hideAnswers(gameData.game);
+	if(!(!gameData.game.quizTime && !gameData.game.surveyTime)){
+		Router.go('/')
 	}
 });
 
@@ -17,18 +11,10 @@ Template.join.events({
 	},
 
 	'click #join' : function(event){
-		var gameTarget = Games.findOne({'_id' : gameData._id});
+		let player = getPlayer(gameData.game, Meteor.userId());
 
-		var newPlayer = true;
-		for(var i = 0; i < gameTarget.players.length; i++) {
-    		if (gameTarget.players[i] === Meteor.user()) {
-       		 newPlayer = false;
-        	break;
-    	}
-	}
-
-		if(newPlayer){
-			var player = {
+		if(player === null){
+			let player = {
  			_id : Meteor.userId(),
  			nickName : Meteor.user().profile.name,
  			score : 0,
