@@ -53,7 +53,7 @@ Meteor.startup(() => {
 			author: "Anthony Dell'Agli"
 		});
 	Questions.insert({
-			question: "Who is their celebrity crush?",
+			question: "What is their greatest achievment?",
 			author: "Anthony Dell'Agli"
 		});
 	Questions.insert({

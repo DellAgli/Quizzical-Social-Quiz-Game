@@ -6,6 +6,9 @@ Template.join.onCreated(function(){
 		gameData.game.questions[i].incorrect3 = null;
 
 	}
+	for(i=0; i<gameData.game.players.length;i++){
+		gameData.game.players[i].answers = null;
+	}
 });
 
 Template.join.events({
@@ -46,5 +49,5 @@ Template.join.events({
 Template.join.helpers({
 	'gameName': function(){
 		return gameData.game.gameName;
-	}
+	},
 });

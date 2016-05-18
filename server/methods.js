@@ -40,11 +40,11 @@
  			}
  		}
  		
- 		//game.players[playerIndex].answers.push({
- 		//	questionID: questionID,
- 		//	answer: answer
- 		//	});
- 		//Games.update({_id: gameID}, {$set: {players: game.players}});
+ 		game.players[playerIndex].answers.push({
+ 			questionID: questionID,
+ 			answer: answer
+ 			});
+ 		Games.update({_id: gameID}, {$set: {players: game.players}});
 
  		if(question.correct === answer){
  			score += 5;
@@ -144,6 +144,35 @@
  		}
  		return r
  	}
- }
+ },
+ 	getResults: function(gameID, playerID){
+ 		let game = Games.findOne({_id: gameID});
+ 		let player = null;
+ 		for(i=0;i<game.players.length;i++){
+ 			if(game.players[i]._id === playerID){
+ 				player = game.players[i];
+ 				break
+ 			}
+ 		}
+ 		if(player){
+ 			let r = [];
+ 			for(i=0; i<player.answers.length;i++){
+ 				let question = null;
+ 				for(j=0;j<game.questions.length;j++){
+ 					if(game.questions[j].questionID === player.answers[i].questionID){
+ 						question = game.questions[j];
+ 						break
+ 					}
+ 				}
+ 				r.push({
+ 					questionText : question.qText,
+ 					author: question.author,
+ 					correctAnswer: question.correct,
+ 					submittedAnswer: player.answers[i].answer
+ 				})
+ 			}
+ 			return r;
+ 		}
+ 	}
 
  });

@@ -8,7 +8,7 @@ Template.game.onCreated(function(){
         	break;
     	}
     };
-	gameData.player = player;
+	//gameData.player = player;
 
 	if(player === null)
        	Router.go('/');
@@ -35,6 +35,9 @@ Template.game.onCreated(function(){
 		gameData.game.questions[i].incorrect3 = null;
 
 	}
+	for(i=0; i<gameData.game.players.length;i++){
+		gameData.game.players[i].answers = null;
+	}
 });
 
 Template.game.helpers({
@@ -60,7 +63,7 @@ Template.game.helpers({
 
 	startGameDisable: function(){
 		if(gameData.game.quizTime || gameData.game.surveyTime)
-			return "disabled"
+			return "hidden"
 	},
 	answerQuestionDisable: function(){
 		let player = null;
@@ -74,7 +77,7 @@ Template.game.helpers({
 			return "disabled"
 	},
 	takeQuizDisable: function(){
-let player = null;
+	let player = null;
 	for(var i = 0; i < gameData.game.players.length; i++) {
   		if (gameData.game.players[i]._id === Meteor.userId()) {
        		 player = gameData.game.players[i];
@@ -87,6 +90,24 @@ let player = null;
 	},
 	joinLink: function(){
 		return document.location.origin +"/join:" + gameData._id;
+	},
+	resultsLink: function(playerID){
+		return '/results:' + gameData._id + '~' + playerID;
+	},
+
+	bothFinished: function(f1){
+		if(!f1)
+			return false
+		else{
+			let player = null;
+			for(var i = 0; i < gameData.game.players.length; i++) {
+  					if (gameData.game.players[i]._id === Meteor.userId()) {
+       				 player = gameData.game.players[i];
+        			break;
+    			}
+    }	
+    return !player.finished;
+		}
 	}
 });
 

@@ -25,7 +25,7 @@
 			{{questionCounter}}
 			</td>
 			<td class="table-data player-scores">
-			{{score}}
+			{{score}} {{#if bothFinished finished}} <a href="{{resultsLink _id}}"> <i class="fa fa-exclamation" aria-hidden="true"></i></a> {{/if}}
 			</td>
 		</tr>
 	{{/each}}
