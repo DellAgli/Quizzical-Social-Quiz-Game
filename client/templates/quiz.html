@@ -24,8 +24,8 @@
      		<row>
    				<div class="col-xs-8 col-xs-offset-2">
    					<form class="answers">
-   						{{#each answers}}
-   						<input type="radio" name="answer" value="{{text}}" questionid="{{questionID}}"> &nbsp;{{text}}<br>
+   						{{#each answers}}<label>
+   						<input class="quiz-radio" type="radio" name="answer" value="{{text}}" questionid="{{questionID}}"> &nbsp;{{text}}</label><br>
    						{{/each}}
    					</form>
    				</div>

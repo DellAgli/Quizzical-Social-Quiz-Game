@@ -115,7 +115,6 @@ Template.game.events({
 	'click #startGame' : function(event){
 		if(confirm("Once you start, nobody else can join")){
 			Meteor.call('startGame', gameData._id);
-			console.log("DERP");
 			}
 			
 	},

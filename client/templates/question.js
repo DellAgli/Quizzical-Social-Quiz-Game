@@ -30,7 +30,6 @@ Template.answer.onCreated(function(){
 Template.answer.onRendered(function () {
 	Meteor.defer(function () {
     const questionData = Random.choice(Questions.find().fetch());
-	//console.log(questionData);
 
 	try{
 	$('#question-text').text(questionData.question);
@@ -101,7 +100,6 @@ Template.answer.events({
 			incorrect3: $('#false3').val(),
 			questionID: Random.id()
 		}
-		//console.log(answeredQuestion);
 
 		Meteor.call('submitQuestion', gameData._id, Meteor.userId(), answeredQuestion, function(e,r){
 			if(r == 0){

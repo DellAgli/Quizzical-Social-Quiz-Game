@@ -34,7 +34,6 @@
  			let question = null;
  			for(i = 0; i<game.questions.length; i++){
  			if(game.questions[i].questionID === questionID){
- 				//console.log(game.questions[i]._id );
  				question = game.questions[i];
  				break
  			}
@@ -87,8 +86,6 @@
 		var questions = game.questions;
 		for(i = 0; i<questions.length; i++){
 			if(questions[i].authorId != playerID){
-				console.log(questions[i].authorID);
-				console.log(playerID);
 			var answers = [];
 			var nextQuestion={
 				'questiontext' : questions[i].qText,
@@ -120,7 +117,6 @@
 			r.push(nextQuestion);
 		}
 	}
-		//console.log(r);
 		return r;
  	},
 
