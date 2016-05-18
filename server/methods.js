@@ -1,15 +1,14 @@
  Meteor.methods({
- 	newGame : function(game){
- 		let gameId = Games.insert(game);
- 		console.log(gameId);
- 		return gameId;
+ 	newGame : function(game, user){
+ 		let gameID = Games.insert(game);
+ 		let profile = user.profile;
+ 		profile.games.push(gameID);
+ 		Meteor.users.upsert({_id: user._id}, {$set: {profile: profile}});
+ 		return gameID;
  	},
 
  	startGame: function(gameID){
- 		//console.log(gameID)
  		Games.update({_id : gameID}, {$set: {surveyTime: true}});
- 		//console.log(Games.findOne({_id : gameID}));
- 		//console.log(Games.findOne({}));
  	},
 
  	startQuiz: function(id){
@@ -35,7 +34,6 @@
  			let question = null;
  			for(i = 0; i<game.questions.length; i++){
  			if(game.questions[i].questionID === questionID){
- 				//console.log(game.questions[i]._id );
  				question = game.questions[i];
  				break
  			}
@@ -87,7 +85,7 @@
  		let r = [];
 		var questions = game.questions;
 		for(i = 0; i<questions.length; i++){
-			//if(questions[i].authorID === playerID){
+			if(questions[i].authorId != playerID){
 			var answers = [];
 			var nextQuestion={
 				'questiontext' : questions[i].qText,
@@ -117,14 +115,60 @@
 
 			nextQuestion.answers = answers;
 			r.push(nextQuestion);
-		//}
+		}
 	}
-		//console.log(r);
 		return r;
  	},
 
  	addNewQuestion: function(question){
  		Questions.insert(question);
+ 	},
+
+ 	joinGame: function(gameID, newPlayer, user){
+ 		let profile = user.profile;
+ 		profile.games.push(gameID);
+ 		Meteor.users.upsert({_id: user._id}, {$set: {profile: profile}});
+ 		Games.update({_id: gameID}, {$push: {players: newPlayer}})
+ 	},
+ 	getGames: function(userID){
+ 		let user = Meteor.users.findOne({_id: userID});
+ 		if(user){
+ 		let ids = user.profile.games;
+ 		let r = [];
+ 		for(i=0;i<ids.length;i++){
+ 			r.push(Games.findOne({_id: ids[i]}))
+ 		}
+ 		return r
+ 	}
+ },
+ 	getResults: function(gameID, playerID){
+ 		let game = Games.findOne({_id: gameID});
+ 		let player = null;
+ 		for(i=0;i<game.players.length;i++){
+ 			if(game.players[i]._id === playerID){
+ 				player = game.players[i];
+ 				break
+ 			}
+ 		}
+ 		if(player){
+ 			let r = [];
+ 			for(i=0; i<player.answers.length;i++){
+ 				let question = null;
+ 				for(j=0;j<game.questions.length;j++){
+ 					if(game.questions[j].questionID === player.answers[i].questionID){
+ 						question = game.questions[j];
+ 						break
+ 					}
+ 				}
+ 				r.push({
+ 					questionText : question.qText,
+ 					author: question.author,
+ 					correctAnswer: question.correct,
+ 					submittedAnswer: player.answers[i].answer
+ 				})
+ 			}
+ 			return r;
+ 		}
  	}
 
  });

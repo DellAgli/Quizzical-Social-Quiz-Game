@@ -1,0 +1,42 @@
+<template name="results">
+<div class="main-page container">
+
+   <row>
+      <div class="col-xs-12">
+         <h1>Results for {{player}}</h1>
+      </div>
+   </row>
+
+   <div class="container">
+   		{{#each submissions}}
+   			<row>
+   			<div class="col-xs-8 col-xs-offset-2"> 
+   			<h1 class="results-question-text">
+   			According to {{author}}, {{questionText}}
+   			</h1>
+   			</div>
+   			</row>
+     		<row>
+   				<div class="col-xs-8 col-xs-offset-2">
+   					<h5 class="correct-label"> Correct Answer: </h5>
+   					<p class="correct-answer">
+   						{{correctAnswer}}
+   					</p>
+
+   					<h5 class="submitted-label"> They said: </h5>
+   					<p class="submitted-answer">
+   						{{submittedAnswer}}
+   					</p>
+   				</div>
+               
+   			</row>
+
+            <hr>
+   	{{/each}}
+      <div class="col-xs-8 col-xs-offset-2">
+           <button class="btn btn-default go-back-button">Go Back</button>
+            </div>
+   	
+</div>
+</div>
+</template>

@@ -1,0 +1,29 @@
+ .results-question-text{
+ 	text-align: left !important;
+ 	font-weight: bold;
+ 	font-style: italic;
+ }
+
+ .correct-label{
+ 	font-size: 24px;
+ 	font-weight: bold;
+ }
+
+ .correct-answer{
+ 	font-size: 20px;
+ 	font-style: italic;
+ 	color: #222222;
+ 	text-indent: 20px;
+ }
+
+.submitted-label{
+ 	font-size: 24px;
+ 	font-weight: bold;
+}
+
+.submitted-answer{
+ 	font-size: 20px;
+ 	font-style: italic;
+ 	color: #222222;
+ 	text-indent: 20px;
+}

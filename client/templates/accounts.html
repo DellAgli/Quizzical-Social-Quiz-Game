@@ -1,0 +1,75 @@
+ <template name="register">
+    <form>
+    	<p>
+    	<label> Email </label>
+    	</p><p>
+        <input type="email" name="registerEmail">
+    	</p><p>
+        <label> Password </label>
+    	</p><p>
+        <input type="password" name="registerPassword">
+    	</p><p>
+        <label> Display Name </label>
+    	</p><p>
+        <input type="text" name="registerName">
+    	</p><p>
+        <input type="submit" class="btn btn-primary" value="Register">
+        </p>
+    </form>
+</template>
+
+
+<template name="login">
+    <form>
+    	<p>
+    	<label> Email </label>
+    	</p><p>
+        <input type="email" name="loginEmail" class="login-input">
+    	</p><p>
+        <label> Password </label>
+    	</p><p>
+        <input type="password" name="loginPassword">
+        </p><p>
+        <input type="submit" class="btn btn-primary" value="Login">
+        </p>
+    </form>
+</template>
+
+<template name="accountsSystem">
+{{#if currentUser}}
+	<li><a href="#" class=log-out>Log Out</a></li>
+{{else}}
+	<li><a data-toggle="modal" data-target="#login-modal" id="login">Log In</a></li>
+	<li><a data-toggle="modal" data-target="#register-modal" id="register">Register</a></li>
+
+<div id="login-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title accounts-title">Log In</h4>
+      </div>
+      <div class="modal-body accounts-body">
+      <p class="log-error"></p>
+      {{> login}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="register-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title accounts-title">Register</h4>
+      </div>
+      <div class="modal-body accounts-body">
+      <p class="reg-error"></p>
+      {{> register}}
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+</template>

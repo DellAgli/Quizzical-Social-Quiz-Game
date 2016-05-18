@@ -8,7 +8,7 @@ Template.game.onCreated(function(){
         	break;
     	}
     };
-	gameData.player = player;
+	//gameData.player = player;
 
 	if(player === null)
        	Router.go('/');
@@ -27,6 +27,17 @@ Template.game.onCreated(function(){
 		if(boolean){
 			Meteor.call('startQuiz', gameData._id)
 		}
+
+	for(i=0;i<gameData.game.questions.length;i++){
+		gameData.game.questions[i].correct = null;
+		gameData.game.questions[i].incorrect1 = null;
+		gameData.game.questions[i].incorrect2 = null;
+		gameData.game.questions[i].incorrect3 = null;
+
+	}
+	for(i=0; i<gameData.game.players.length;i++){
+		gameData.game.players[i].answers = null;
+	}
 });
 
 Template.game.helpers({
@@ -34,38 +45,76 @@ Template.game.helpers({
 		return !gameData.game.quizTime && !gameData.game.surveyTime;
 	},
 
-	'id' : function(){
-		return gameData._id;
-	},
 
 	'players' : function(){
 		return gameData.game.players;
 	},
 
 	'isLeader' : function(){
-		return gameData.game.players.indexOf(Meteor.user()._id).leader;
+		let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    };
+		return player.leader;
 	},
 
 	startGameDisable: function(){
 		if(gameData.game.quizTime || gameData.game.surveyTime)
-			return "disabled"
+			return "hidden"
 	},
 	answerQuestionDisable: function(){
-		if(!gameData.game.surveyTime)
+		let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    }
+		if(!gameData.game.surveyTime || player.questionCounter === 0)
 			return "disabled"
 	},
 	takeQuizDisable: function(){
-		if(!gameData.game.quizTime){
+	let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    }	
+		if(!gameData.game.quizTime || player.finished){
 			return 'disabled';
 		}
 	},
+	joinLink: function(){
+		return document.location.origin +"/join:" + gameData._id;
+	},
+	resultsLink: function(playerID){
+		return '/results:' + gameData._id + '~' + playerID;
+	},
+
+	bothFinished: function(f1){
+		if(!f1)
+			return false
+		else{
+			let player = null;
+			for(var i = 0; i < gameData.game.players.length; i++) {
+  					if (gameData.game.players[i]._id === Meteor.userId()) {
+       				 player = gameData.game.players[i];
+        			break;
+    			}
+    }	
+    return !player.finished;
+		}
+	}
 });
 
 Template.game.events({
 	'click #startGame' : function(event){
 		if(confirm("Once you start, nobody else can join")){
 			Meteor.call('startGame', gameData._id);
-			console.log("DERP");
 			}
 			
 	},
@@ -80,9 +129,16 @@ Template.game.events({
 	},
 
 	'click #doQuiz': function(event){
+			let player = null;
+	for(var i = 0; i < gameData.game.players.length; i++) {
+  		if (gameData.game.players[i]._id === Meteor.userId()) {
+       		 player = gameData.game.players[i];
+        	break;
+    	}
+    };	
 		if(!gameData.game.quizTime){
 			alert("Everyone needs to answer their questions before you can start");		}
-		else if(gameData.player.finished){
+		else if(player.finished){
 			alert("You already completed the quiz and scored " + gameData.player.score + " points.")
 		}
 		else{

@@ -9,18 +9,27 @@ Template.answer.onCreated(function(){
         	break;
     	}
     };
-	gameData.player = player;
+	//gameData.player = player;
     if(player === null)
        	Router.go('/');
     if(player.questionCounter === 0)
     	Router.go('/game:' + gameData._id);
     
+  	for(i=0;i<gameData.game.questions.length;i++){
+		gameData.game.questions[i].correct = null;
+		gameData.game.questions[i].incorrect1 = null;
+		gameData.game.questions[i].incorrect2 = null;
+		gameData.game.questions[i].incorrect3 = null;
+
+	}
+	for(i=0; i<gameData.game.players.length;i++){
+		gameData.game.players[i].answers = null;
+	}
 });
 
 Template.answer.onRendered(function () {
 	Meteor.defer(function () {
     const questionData = Random.choice(Questions.find().fetch());
-	//console.log(questionData);
 
 	try{
 	$('#question-text').text(questionData.question);
@@ -51,9 +60,13 @@ Template.answer.helpers({
 Template.answer.events({
 	'click .new-button': function(event){
 		event.preventDefault();
-		const questionData = Random.choice(Questions.find().fetch());
+		let questionData = Random.choice(Questions.find().fetch());
 		$('#question-text').text(questionData.question);
 		$('#author').text("Submitted by: " + questionData.author);
+		$('#correct').val('');
+		$('#false1').val(''); 
+		$('#false2').val('');
+		$('#false3').val('');
 	},
 
 	'click .back' : function(event){
@@ -87,7 +100,6 @@ Template.answer.events({
 			incorrect3: $('#false3').val(),
 			questionID: Random.id()
 		}
-		//console.log(answeredQuestion);
 
 		Meteor.call('submitQuestion', gameData._id, Meteor.userId(), answeredQuestion, function(e,r){
 			if(r == 0){
@@ -95,9 +107,14 @@ Template.answer.events({
 				Router.go('/game:' + gameData._id);
 			}
 			else {
-				const questionData = Random.choice(Questions.find().fetch());
+				let questionData = Random.choice(Questions.find().fetch());
 				$('#question-text').text(questionData.question);
 				$('#author').text("Submitted by: " + questionData.author);
+				$('#correct').val('');
+				$('#false1').val(''); 
+				$('#false2').val('');
+				$('#false3').val('');
+
 			}
 		})
 		

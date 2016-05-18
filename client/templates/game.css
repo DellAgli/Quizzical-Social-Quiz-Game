@@ -4,4 +4,27 @@
 
 .table-title {
 	font-weight: bold;
+	font-size: 28px;
+	color: #166696;
+}
+
+.table-data{
+	font-size: 20px;
+	color: #222222;
+}
+
+.main-page h1{
+	text-align: center;
+	color: #166696;
+}
+
+.join-link{
+	text-align: center;
+	font-style: italic;
+	font-color:#222222;
+	font-size: 20px;
+}
+
+.buttons-div{
+	text-align: center;
 }

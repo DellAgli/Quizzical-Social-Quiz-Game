@@ -13,10 +13,17 @@ Template.quiz.onCreated(function(){
     	Router.go('/game:' + gameData._id);
     
 
-	console.log(gameData);
 	Meteor.call('getQuiz', gameData._id, Meteor.userId(), function(e,r){
 		Session.set('questions', r);
 	});
+
+	for(i=0;i<gameData.game.questions.length;i++){
+		gameData.game.questions[i].correct = null;
+		gameData.game.questions[i].incorrect1 = null;
+		gameData.game.questions[i].incorrect2 = null;
+		gameData.game.questions[i].incorrect3 = null;
+
+	}
 });
 
 
@@ -46,7 +53,7 @@ Template.quiz.events({
 		}
 		Meteor.call('gradeQuestions', gameData._id, Meteor.userId(), attempts, function(e,r){
 			alert("You scored " + r + " points. Check back after everyone has finsished for detailed results.");
-			Router.go("/game:"+gameData._id);
+			Router.go("/results:"+gameData._id+'~'+Meteor.userId());
 		});
 	}
 

@@ -1,3 +1,16 @@
+Template.join.onCreated(function(){
+	for(i=0;i<gameData.game.questions.length;i++){
+		gameData.game.questions[i].correct = null;
+		gameData.game.questions[i].incorrect1 = null;
+		gameData.game.questions[i].incorrect2 = null;
+		gameData.game.questions[i].incorrect3 = null;
+
+	}
+	for(i=0; i<gameData.game.players.length;i++){
+		gameData.game.players[i].answers = null;
+	}
+});
+
 Template.join.events({
 	'click #begin' : function(event){
 		Router.go("localhost:3000/game:" + gameData._id);
@@ -17,19 +30,24 @@ Template.join.events({
 		if(newPlayer){
 			var player = {
  			_id : Meteor.userId(),
- 			nickName : $('#nickname').val,
+ 			nickName : Meteor.user().profile.name,
  			score : 0,
  			questionCounter : 5,
  			answers : [],
  			finished : false
  		}
 
- 		gameTarget.players.push(player)
-		}
-		console.log(gameTarget);
-
-		Router.go("/game:" + gameData._id);
+ 		Meteor.call('joinGame', gameData._id, player, Meteor.user(), function(e,r){
+			Router.go("/game:" + gameData._id);
+ 		});
+		}		
 	}
 
 	
+});
+
+Template.join.helpers({
+	'gameName': function(){
+		return gameData.game.gameName;
+	},
 });

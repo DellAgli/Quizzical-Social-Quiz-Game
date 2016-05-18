@@ -1,15 +1,18 @@
+
+
  Template.newGame.events({
  	'click #newGame' : function(event){
  		var game = {
  			players : [],
  			questions : [],
  			surveyTime : false,
- 			quizTime : false
+ 			quizTime : false,
+ 			gameName: $('#name').val()
  		}
 
  		var player = {
  			_id : Meteor.userId(),
- 			nickName : $('#nickname').val(),
+ 			nickName : Meteor.user().profile.name,
  			score : 0,
  			questionCounter : 5,
  			answers : [],
@@ -19,13 +22,10 @@
 
  		game.players.push(player);
 
- 		Meteor.call('newGame', game, function(e,r){
-
-			var string = "localhost:3000/join:" + r;
-
-	 		console.log(game);
-
-	 		console.log(string);
+ 		Meteor.call('newGame', game, Meteor.user(), function(e,r){
+ 			let gamesList = Meteor.user().profile.games;
+ 			gamesList.push(r);
+ 			Meteor.users.upsert({_id: Meteor.userId()}, {$set: {profile: {games: gamesList}}});
 
 	 		Router.go('/game:' + r);
  		});

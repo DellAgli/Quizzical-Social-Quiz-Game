@@ -1,7 +1,7 @@
 <template name="game">
 	<div class="main-page container">
 
-	<h1> Game Info </h1>
+	<h1> Game Info: {{game.gameName}}</h1>
 
 	<table class="table table-bordered score-table">
 		<tr>
@@ -18,28 +18,31 @@
 
 	{{#each players}}
 		<tr>
-			<td class="nick-name">
+			<td class="table-data nick-name">
 			{{nickName}}
 			</td>
-			<td class="questions-left">
+			<td class="table-data questions-left">
 			{{questionCounter}}
 			</td>
-			<td class="player-scores">
-			{{score}}
+			<td class="table-data player-scores">
+			{{score}} {{#if bothFinished finished}} <a href="{{resultsLink _id}}"> <i class="fa fa-exclamation" aria-hidden="true"></i></a> {{/if}}
 			</td>
 		</tr>
 	{{/each}}
 	</table>
 	{{#if inviteTime}}
 	<h1> Invite Link</h1>
-	<p>
-		localhost/join:{{id}}
+	<p class="join-link">
+		{{joinLink}}
 	</p>
 	{{/if}}
+	<div class="buttons-div">
+	{{#if isLeader}}
 	<button type="button" class="btn btn-primary {{startGameDisable}}" id="startGame">Start Game</button>
-
+	{{/if}}
 	<button type="button" class="btn btn-primary {{answerQuestionDisable}}" id="addQuestions">Answer Questions</button>
 
 	<button type="button" class="btn btn-primary {{takeQuizDisable}}" id="doQuiz">Take Quiz</button>
+	</div>
 	</div>
 </template>

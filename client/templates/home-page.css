@@ -1,15 +1,23 @@
 .main-page {
-	padding : 16px;
+	padding : 0px;
+	border-radius: 4px;
+	background-color: white;
+	padding-bottom: 5vh;
 }
 
 .col-xs-12 h1 {
 	text-align: center;
 	font-size: 64px;
+	color: #166696;
+	font-weight: bold;
 }
 
 .col-xs-12 h3 {
 	text-align: center;
 	font-size: 48px;
+	color: #166696;
+	font-weight: bold;
+
 }
 
 .img-select img {
@@ -19,14 +27,35 @@
 	height:auto;
 }
 
-.key-words .col-xs-4 {
-	font-size: 36px;
+
+.body-paragraph p {
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 24px;
+
+}
+
+.games-list-header{
 	text-align: center;
 }
 
-.body-paragraph p {
-	margin-left: 15%;
-	margin-right: 15%;
+.games-list{
+	text-align: center;
+	list-style: none;
+}
+
+.games-list li{
+	margin-bottom: 16px;
+}
+
+.listed-game{
+	text-decoration: none;
+	color: #000000;
+	font-size: 24px;
+}
+
+body{
+	background-color: #166696;
 }
 
 
