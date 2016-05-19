@@ -32,9 +32,17 @@
 	</table>
 	{{#if inviteTime}}
 	<h1> Invite Link</h1>
+	{{#if game.shortURL}}
+	<p class="join-link">
+		{{game.shortURL}}
+		<a href="{{tweetLink game.shortURL}}"> <i class="fa fa-twitter" aria-hidden="true"></i> </a>
+	</p>
+	{{else}}
 	<p class="join-link">
 		{{joinLink}}
+		<a href="{{tweetLink joinLink}}"> <i class="fa fa-twitter" aria-hidden="true"></i> </a>
 	</p>
+	{{/if}}
 	{{/if}}
 	<div class="buttons-div">
 	{{#if isLeader}}

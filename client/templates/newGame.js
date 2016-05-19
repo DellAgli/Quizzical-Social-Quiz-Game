@@ -7,7 +7,8 @@
  			questions : [],
  			surveyTime : false,
  			quizTime : false,
- 			gameName: $('#name').val()
+ 			gameName: $('#name').val(),
+ 			shortURL : null
  		}
 
  		var player = {
@@ -21,14 +22,10 @@
  		}
 
  		game.players.push(player);
-
- 		Meteor.call('newGame', game, Meteor.user(), function(e,r){
- 			let gamesList = Meteor.user().profile.games;
- 			gamesList.push(r);
- 			Meteor.users.upsert({_id: Meteor.userId()}, {$set: {profile: {games: gamesList}}});
-
-	 		Router.go('/game:' + r);
+		Meteor.call('newGame', game, Meteor.user(), document.location.origin, function(e,r){
+	 			Router.go('/game:' + r);
  		});
+
 
  		
 	}

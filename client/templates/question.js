@@ -17,7 +17,7 @@ Template.answer.onCreated(function(){
 
 Template.answer.onRendered(function () {
 	Meteor.defer(function () {
-    const questionData = Random.choice(Questions.find().fetch());
+    const questionData = Random.choice(Questions.find({approved: true}).fetch());
 
 	try{
 	$('#question-text').text(questionData.question);

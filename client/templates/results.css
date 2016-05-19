@@ -27,3 +27,11 @@
  	color: #222222;
  	text-indent: 20px;
 }
+
+.correct-check{
+	color: GREEN;
+}
+
+.incorrect-check{
+	color:RED;
+}

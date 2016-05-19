@@ -23,7 +23,13 @@ Template.results.helpers({
 	score: function(){
 		let player = getPlayer(gameData.game, gameData._ids[1]);
  		if(player)
- 		return player.nickName;
+ 		return player.score;
+	},
+	gradeMark: function(string1,string2){
+		return string1 === string2
+	},
+	maxScore: function(){
+		return gameData.game.questions.length-5;
 	}
 
 })

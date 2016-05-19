@@ -1,9 +1,22 @@
- Meteor.methods({
- 	newGame : function(game, user){
+
+Meteor.methods({
+ 	newGame : function(game, user, domain){
  		let gameID = Games.insert(game);
  		let profile = user.profile;
  		profile.games.push(gameID);
  		Meteor.users.upsert({_id: user._id}, {$set: {profile: profile}});
+
+ 		let UrlLong = domain + "/join:" + gameID
+ 		let apiKey = GOOGLE_URL_SHORTENER_API_KEY
+ 		res = HTTP.call('POST', "https://www.googleapis.com/urlshortener/v1/url?key=" + apiKey, {
+ 			content:"application/json",
+ 			data: {'longUrl': UrlLong},
+ 			timeout: 3000
+ 		})
+
+ 		Games.upsert({_id: gameID}, {$set: {shortURL: res.data.id}})
+
+
  		return gameID;
  	},
 
@@ -46,7 +59,7 @@
  		Games.update({_id: gameID}, {$set: {players: game.players}});
 
  		if(question.correct === answer){
- 			score += 5;
+ 			score++;
  			
  		}
  		}
@@ -169,6 +182,6 @@
  			}
  			return r;
  		}
- 	}
+ 	},
 
  });

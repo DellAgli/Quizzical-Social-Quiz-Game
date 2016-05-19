@@ -10,7 +10,8 @@ Template.newQuestion.events({
 		event.preventDefault();
 		var question = {
 			question: $('#question').val(),
-			author:$('#author').val()
+			author:$('#author').val(),
+			approved : false
 		}
 
 		Meteor.call('addNewQuestion', question, function(e,r){

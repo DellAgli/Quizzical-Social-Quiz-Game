@@ -20,7 +20,6 @@ Template.game.onCreated(function(){
 		if(boolean){
 			Meteor.call('startQuiz', gameData._id)
 		}
-
 });
 
 Template.game.helpers({
@@ -67,6 +66,10 @@ Template.game.helpers({
 			let player = getPlayer(gameData.game, Meteor.userId());
     		return player.finished;
 		}
+	},
+
+	tweetLink: function( link ){
+		return "http://twitter.com/home/?status=" + "Join my Quizzical Game! " +  link;
 	}
 });
 
