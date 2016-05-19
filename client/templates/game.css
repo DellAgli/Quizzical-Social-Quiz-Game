@@ -28,3 +28,7 @@
 .buttons-div{
 	text-align: center;
 }
+
+.current-player{
+	font-weight: bold;
+}

@@ -68,6 +68,12 @@ Template.game.helpers({
 		}
 	},
 
+	isPlayer: function(id){
+		if(Meteor.userId() === id){
+			return "current-player"
+		}
+	},
+
 	tweetLink: function( link ){
 		return "http://twitter.com/home/?status=" + "Join my Quizzical Game! " +  link;
 	}
