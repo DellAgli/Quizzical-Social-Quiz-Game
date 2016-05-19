@@ -4,6 +4,7 @@
    <row>
       <div class="col-xs-12">
          <h1>Results for {{player}}</h1>
+         <h3>{{player}} scored {{score}}/{{maxScore}}.</h3>
       </div>
    </row>
 
@@ -12,7 +13,7 @@
    			<row>
    			<div class="col-xs-8 col-xs-offset-2"> 
    			<h1 class="results-question-text">
-   			According to {{author}}, {{questionText}}
+   			How would {{author}} answer the question, "{{questionText}}"
    			</h1>
    			</div>
    			</row>
@@ -20,12 +21,20 @@
    				<div class="col-xs-8 col-xs-offset-2">
    					<h5 class="correct-label"> Correct Answer: </h5>
    					<p class="correct-answer">
-   						{{correctAnswer}}
+   						<i class="fa fa-circle" aria-hidden="true"></i>
+                     {{correctAnswer}}
    					</p>
 
-   					<h5 class="submitted-label"> They said: </h5>
+   					<h5 class="submitted-label"> {{player}} said: </h5>
    					<p class="submitted-answer">
+                     {{#if (gradeMark correctAnswer submittedAnswer)}}
+                     <i class="fa fa-check correct-check" aria-hidden="true"></i>
+                     {{else}}
+                     <i class="fa fa-times incorrect-check" aria-hidden="true"></i>
+                     {{/if}}
+
    						{{submittedAnswer}}
+                     
    					</p>
    				</div>
                

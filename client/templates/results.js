@@ -1,27 +1,10 @@
 Template.results.onCreated(function(){
-	let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    };
-	//gameData.player = player;
+	let player = getPlayer(gameData.game, Meteor.userId());
 
 	if(player === null)
        	Router.go('/');
 
-
-	for(i=0;i<gameData.game.questions.length;i++){
-		gameData.game.questions[i].correct = null;
-		gameData.game.questions[i].incorrect1 = null;
-		gameData.game.questions[i].incorrect2 = null;
-		gameData.game.questions[i].incorrect3 = null;
-
-	}
-	for(i=0; i<gameData.game.players.length;i++){
-		gameData.game.players[i].answers = null;
-	}
+	gameData.game = hideAnswers(gameData.game);
 
 	Meteor.call('getResults', gameData._ids[0], gameData._ids[1], function(e,r){
 		Session.set('submissions', r);
@@ -33,17 +16,22 @@ Template.results.helpers({
 		return Session.get('submissions');
 	},
 	player: function(){
-		let playerID = gameData._ids[1];
-		let player = null;
- 		for(i=0;i<gameData.game.players.length;i++){
- 			if(gameData.game.players[i]._id === playerID){
- 				player = gameData.game.players[i];
- 				break
- 			}
- 		}
+		let player = getPlayer(gameData.game, gameData._ids[1]);
  		if(player)
  		return player.nickName;
 	},
+	score: function(){
+		let player = getPlayer(gameData.game, gameData._ids[1]);
+ 		if(player)
+ 		return player.score;
+	},
+	gradeMark: function(string1,string2){
+		return string1 === string2
+	},
+	maxScore: function(){
+		return gameData.game.questions.length-5;
+	}
+
 })
 
 Template.results.events({

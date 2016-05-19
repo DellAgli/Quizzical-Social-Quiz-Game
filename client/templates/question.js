@@ -2,34 +2,22 @@ Meteor.subscribe('questions');
 Meteor.subscribe('games');
 
 Template.answer.onCreated(function(){
-	let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    };
+	let player = getPlayer(gameData.game, Meteor.userId());
+
+	if(player === null)
+       	Router.go('/');
+
+	gameData.game = hideAnswers(gameData.game);
 	//gameData.player = player;
     if(player === null)
        	Router.go('/');
     if(player.questionCounter === 0)
     	Router.go('/game:' + gameData._id);
-    
-  	for(i=0;i<gameData.game.questions.length;i++){
-		gameData.game.questions[i].correct = null;
-		gameData.game.questions[i].incorrect1 = null;
-		gameData.game.questions[i].incorrect2 = null;
-		gameData.game.questions[i].incorrect3 = null;
-
-	}
-	for(i=0; i<gameData.game.players.length;i++){
-		gameData.game.players[i].answers = null;
-	}
 });
 
 Template.answer.onRendered(function () {
 	Meteor.defer(function () {
-    const questionData = Random.choice(Questions.find().fetch());
+    const questionData = Random.choice(Questions.find({approved: true}).fetch());
 
 	try{
 	$('#question-text').text(questionData.question);
@@ -45,14 +33,7 @@ Template.answer.onRendered(function () {
 
 Template.answer.helpers({
 	'questionsLeft': function(){
-		let player = null;
-	for(var i = 0; i < gameData.game.players.length; i++) {
-  		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    }
-
+	let player = getPlayer(gameData.game, Meteor.userId());
     return player.questionCounter;
 	}
 })
@@ -75,22 +56,8 @@ Template.answer.events({
 
 	'click .submit-button':function(event){
 		event.preventDefault;
-
-
-
-		let player = null;
-
-		for(var i = 0; i < gameData.game.players.length; i++) {
-    		if (gameData.game.players[i]._id === Meteor.userId()) {
-       		 player = gameData.game.players[i];
-        	break;
-    	}
-    }
-
-
-
-	
-		var answeredQuestion = {
+		let player = getPlayer(gameData.game, Meteor.userId());
+		let answeredQuestion = {
 			qText : $('#question-text').text(),
 			author: player.nickName,
 			authorId: Meteor.userId(),
