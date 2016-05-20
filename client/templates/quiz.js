@@ -39,6 +39,7 @@ Template.quiz.events({
 				answer : answer
 			});
 		}
+		//console.log(attempts);
 		Meteor.call('gradeQuestions', gameData._id, Meteor.userId(), attempts, function(e,r){
 			alert("You scored " + r + " points. Check back after everyone has finsished for detailed results.");
 			Router.go("/results:"+gameData._id+'~'+Meteor.userId());

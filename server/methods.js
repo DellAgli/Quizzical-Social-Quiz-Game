@@ -45,13 +45,12 @@ Meteor.methods({
  			let questionID = answers[i].questionID;
  			let answer = answers[i].answer;
  			let question = null;
- 			for(i = 0; i<game.questions.length; i++){
- 			if(game.questions[i].questionID === questionID){
- 				question = game.questions[i];
+ 			for(j = 0; j<game.questions.length; j++){
+ 			if(game.questions[j].questionID === questionID){
+ 				question = game.questions[j];
  				break
  			}
  		}
- 		
  		game.players[playerIndex].answers.push({
  			questionID: questionID,
  			answer: answer
